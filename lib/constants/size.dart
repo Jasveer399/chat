@@ -1,0 +1,1 @@
+const AppdefultSz=30.0;
