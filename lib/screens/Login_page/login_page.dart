@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:chat/api/apis.dart';
+import 'package:chat/constants/colors.dart';
 import 'package:chat/constants/size.dart';
 import 'package:chat/helper/dialog.dart';
 import 'package:chat/screens/Home/home_page.dart';
@@ -20,6 +21,8 @@ class _Login_PageState extends State<Login_Page> {
     Dialogs.showprogresbar(context);
     _signInWithGoogle().then((User) async {
       Navigator.pop(context);
+
+    // checking Your  Exists or Not  
       if ((await APIS.userExists())) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Home_Page()));
@@ -28,6 +31,7 @@ class _Login_PageState extends State<Login_Page> {
          Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Home_Page()));
       }
+
     });
   }
 
@@ -64,7 +68,7 @@ class _Login_PageState extends State<Login_Page> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color.fromARGB(255, 150, 124, 160),
+            AppprimeCl,
             Color.fromARGB(255, 125, 195, 252),
           ],
           begin: Alignment.topCenter,
@@ -146,7 +150,7 @@ class _Login_PageState extends State<Login_Page> {
                     onPressed: () {},
                     child: Text(
                       "Forget your Password?",
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+                      style: TextStyle(fontSize: 18, color: AppsecondaryCl),
                     )),
                 SizedBox(
                   height: 50,
@@ -160,7 +164,7 @@ class _Login_PageState extends State<Login_Page> {
                         height: 3,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
+                          color: AppprimeCl,
                         ),
                       ),
                       SizedBox(
@@ -169,7 +173,7 @@ class _Login_PageState extends State<Login_Page> {
                       Text(
                         "or connect with",
                         style: TextStyle(
-                            color: Colors.white,
+                            color: AppprimeCl,
                             fontSize: 18,
                             fontWeight: FontWeight.w400),
                       ),
@@ -181,7 +185,7 @@ class _Login_PageState extends State<Login_Page> {
                         height: 3,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
+                          color: AppprimeCl,
                         ),
                       ),
                     ],
@@ -221,33 +225,33 @@ class _Login_PageState extends State<Login_Page> {
                     SizedBox(
                       width: 20,
                     ),
-                    Container(
-                      width: 155,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 188, 76, 51),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            "    G",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          GestureDetector(
-                            onTap: () => _handlegooglebtclick(),
-                            child: Text(
+                    GestureDetector(
+                      onTap: ()=>_handlegooglebtclick(),
+                      child: Container(
+                        width: 155,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: AppsecondaryCl,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              "    G",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
                               "   Google",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 17,
                                   fontWeight: FontWeight.w500),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -260,7 +264,7 @@ class _Login_PageState extends State<Login_Page> {
                     Text(
                       "Don't have an account?",
                       style: TextStyle(
-                          color: Colors.white,
+                          color: AppsecondaryCl,
                           fontSize: 16,
                           fontWeight: FontWeight.w500),
                     ),
@@ -271,7 +275,7 @@ class _Login_PageState extends State<Login_Page> {
                         onPressed: () {},
                         child: Text("Sign Up",
                             style:
-                                TextStyle(color: Colors.white, fontSize: 25))),
+                                TextStyle(color: AppprimeCl, fontSize: 25))),
                   ],
                 ),
               ],

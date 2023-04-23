@@ -1,7 +1,8 @@
-import 'dart:convert';
-import 'dart:developer';
+//import 'dart:convert';
+//import 'dart:developer';
 import 'package:chat/api/apis.dart';
 import 'package:chat/models/chat_user.dart';
+import 'package:chat/screens/Profile_Page/profile_page.dart';
 import 'package:chat/widgets/chat_user_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,7 +26,7 @@ class _Home_PageState extends State<Home_Page> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    ////final size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -41,8 +42,7 @@ class _Home_PageState extends State<Home_Page> {
                 )),
             IconButton(
                 onPressed: () async {
-                 await APIS.auth.signOut();
-                 await GoogleSignIn().signOut();
+                 Navigator.push(context, MaterialPageRoute(builder: (_)=>Profile_Page(user: list[0],)));
                 },
                 icon: Icon(
                   Icons.more_vert,

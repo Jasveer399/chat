@@ -7,7 +7,7 @@ class AppElevaterbutton{
   static final lighelevaterbutton= ElevatedButtonThemeData(
     style: OutlinedButton.styleFrom(
       foregroundColor: AppWhiteCl,
-      backgroundColor: Color.fromARGB(181, 133, 166, 215),
+      backgroundColor: AppprimeCl,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(200)),
     ),
   );

@@ -1,4 +1,5 @@
 import 'package:chat/api/apis.dart';
+import 'package:chat/constants/colors.dart';
 import 'package:chat/constants/images.dart';
 import 'package:chat/screens/Home/home_page.dart';
 import 'package:chat/screens/Login_page/login_page.dart';
@@ -14,7 +15,6 @@ class Splash_Page extends StatefulWidget {
 
 class _Splash_PageState extends State<Splash_Page> {
   @override
-
   void initState(){
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -29,12 +29,12 @@ class _Splash_PageState extends State<Splash_Page> {
     });
   }
   Widget build(BuildContext context) {
-    final size=MediaQuery.of(context).size;
+  final mq=MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-           Color.fromARGB(255, 150, 124, 160),
+           AppprimeCl,
             Color.fromARGB(255, 125, 195, 252),
           ],
           begin: Alignment.topLeft,
@@ -49,8 +49,8 @@ class _Splash_PageState extends State<Splash_Page> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-                width: size.width*25,
-                height: size.height*0.28,
+                width: mq.width*25,
+                height: mq.height*0.28,
                 child: Image(image: AssetImage(Appicon))),
                 SizedBox(height: 300,),
                 Text("Welcome Chatter",style: TextStyle(fontSize: 28,color: Colors.white),),

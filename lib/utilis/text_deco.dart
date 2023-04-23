@@ -5,18 +5,18 @@ class Logintextfiled{
    Logintextfiled();
 
    static InputDecorationTheme lighttheme = InputDecorationTheme(
-        floatingLabelStyle: TextStyle(color: AppsecondaryCl),
-    //prefixIconColor: AppsecondaryCl,
-    suffixIconColor: AppsecondaryCl,
+        floatingLabelStyle: TextStyle(color: AppprimeCl),
+    prefixIconColor: AppprimeCl,
+    suffixIconColor: AppprimeCl,
     focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Colors.white,
+          color: AppprimeCl,
           width: 1.0,
         ),
         borderRadius: BorderRadius.all(Radius.circular(200.0))),
     border: OutlineInputBorder(
         borderSide: BorderSide(
-          color:Colors.white,
+          color:AppprimeCl,
           width: 1.0,
         ),
        borderRadius: BorderRadius.all(Radius.circular(100.0)),
@@ -25,7 +25,7 @@ class Logintextfiled{
   
    static InputDecorationTheme darkttextfield = InputDecorationTheme(
     floatingLabelStyle: TextStyle(color: AppprimeCl),
-    //prefixIconColor: AppprimeCl,
+    prefixIconColor: AppprimeCl,
     suffixIconColor: AppprimeCl,
     focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
@@ -35,7 +35,7 @@ class Logintextfiled{
         borderRadius: BorderRadius.all(Radius.circular(100.0))),
     border: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Colors.white,
+          color: AppprimeCl,
           width: 1.0,
         ),
         borderRadius: BorderRadius.all(Radius.circular(100.0))),
