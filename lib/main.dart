@@ -9,7 +9,7 @@ void main() {
   _initializefirebase();
   runApp(const MyApp());
 }
-
+late Size mq;
 class MyApp extends StatelessWidget {
  const MyApp({super.key});
 

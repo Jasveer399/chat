@@ -14,4 +14,5 @@ class Dialogs {
         context: context,
         builder: (_) => Center(child: CircularProgressIndicator()));
   }
+  
 }

@@ -1,5 +1,4 @@
 class ChatUaer {
- 
   ChatUaer({
     required this.image,
     required this.name,
@@ -12,33 +11,33 @@ class ChatUaer {
     required this.pushToken,
   });
 
-  late final String image;
-  late final String name;
-  late final String about;
-  late final String createdAt;
-  late final String lastActive;
-  late final bool isOnline;
-  late final String id;
-  late final String email;
-  late final String pushToken;
-  
-  ChatUaer.fromJson(Map<String, dynamic> json){
-    image = json['image']??"";
-    name = json['name']??"";
-    about = json['about']??"";
-    createdAt = json['created_at']??"";
-    lastActive = json['last_active']??"";
-    isOnline = json['is_online']??"";
-    id = json['id']??"";
-    email = json['email']??"";
-    pushToken = json['push_token']??"";
+  late String image;
+  late String name;
+  late String about;
+  late String createdAt;
+  late String lastActive;
+  late bool isOnline;
+  late String id;
+  late String email;
+  late String pushToken;
+
+  ChatUaer.fromJson(Map<String, dynamic> json) {
+    image = json['image'] ?? "";
+    name = json['name'] ?? "";
+    about = json['about'] ?? "";
+    createdAt = json['created_at'] ?? "";
+    lastActive = json['last_active'] ?? "";
+    isOnline = json['is_online'] ?? "";
+    id = json['id'] ?? "";
+    email = json['email'] ?? "";
+    pushToken = json['push_token'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['image'] = image;
     data['name'] = name;
-    data['about']=about;
+    data['about'] = about;
     data['created_at'] = createdAt;
     data['last_active'] = lastActive;
     data['is_online'] = isOnline;

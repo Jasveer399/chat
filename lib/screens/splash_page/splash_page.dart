@@ -15,26 +15,30 @@ class Splash_Page extends StatefulWidget {
 
 class _Splash_PageState extends State<Splash_Page> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    Future.delayed(Duration(seconds: 3),(){
-      
-      if(APIS.auth.currentUser!=null){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>Home_Page()));
-      }
-      else{
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>Login_Page()));
+
+    Future.delayed(Duration(seconds: 3), () {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.transparent));
+      if (APIS.auth.currentUser != null) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => Home_Page()));
+      } else {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => Login_Page()));
       }
     });
   }
+
   Widget build(BuildContext context) {
-  final mq=MediaQuery.of(context).size;
+    final mq = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-           AppprimeCl,
+            AppprimeCl,
             Color.fromARGB(255, 125, 195, 252),
           ],
           begin: Alignment.topLeft,
@@ -49,11 +53,16 @@ class _Splash_PageState extends State<Splash_Page> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-                width: mq.width*25,
-                height: mq.height*0.28,
+                width: mq.width * 25,
+                height: mq.height * 0.28,
                 child: Image(image: AssetImage(Appicon))),
-                SizedBox(height: 300,),
-                Text("Welcome Chatter",style: TextStyle(fontSize: 28,color: Colors.white),),
+            SizedBox(
+              height: 300,
+            ),
+            Text(
+              "Welcome Chatter",
+              style: TextStyle(fontSize: 28, color: Colors.white),
+            ),
           ],
         ),
       )),

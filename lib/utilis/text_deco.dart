@@ -35,7 +35,7 @@ class Logintextfiled{
         borderRadius: BorderRadius.all(Radius.circular(100.0))),
     border: OutlineInputBorder(
         borderSide: BorderSide(
-          color: AppprimeCl,
+          color:AppprimeCl,
           width: 1.0,
         ),
         borderRadius: BorderRadius.all(Radius.circular(100.0))),
