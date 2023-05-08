@@ -114,6 +114,7 @@ class APIS {
       ChatUaer user) {
     return firestore
         .collection('chat/${getconversationid(user.id)}/massage')
+        .orderBy('sent', descending: true)
         .snapshots();
   }
 
@@ -161,16 +162,37 @@ class APIS {
   }
 
   //fOR Sent image massage
-  static Future<void> sentchatimage(ChatUaer chatUaer,File file) async {
+  // static Future<void> sendChatImage(ChatUaer chatUaer,File file) async {
    
-   final ext = file.path.split('.').last;
-    final ref = storage.ref().child('image/${getconversationid(chatUaer.id)}/${DateTime.now().millisecondsSinceEpoch}.$ext');
+  //  final ext = file.path.split('.').last;
+  //   final ref = storage.ref().child('image/${getconversationid(chatUaer.id)}/${DateTime.now().millisecondsSinceEpoch}.$ext');
 
-    ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
-      log('data Tranferred:${p0.bytesTransferred / 1000} kb');
-    });
+  //   ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
+  //     log('data Tranferred:${p0.bytesTransferred / 1000} kb');
+  //   });
     
-    final imageurl=await ref.getDownloadURL();
-    sendmassage(chatUaer, imageurl, Type.image);
+  //   final imageurl=await ref.getDownloadURL();
+  //   await sendmassage(chatUaer, imageurl,Type.image);
+  // }
+
+
+    static Future<void> sendChatImage(ChatUaer chatUser, File file) async {
+    //getting image file extension
+    final ext = file.path.split('.').last;
+
+    //storage file ref with path
+    final ref = storage.ref().child(
+        'images/${getconversationid(chatUser.id)}/${DateTime.now().millisecondsSinceEpoch}.$ext');
+
+    //uploading image
+    await ref
+        .putFile(file, SettableMetadata(contentType: 'image/$ext'))
+        .then((p0) {
+      log('Data Transferred: ${p0.bytesTransferred / 1000} kb');
+    });
+
+    //updating image in firestore database
+    final imageUrl = await ref.getDownloadURL();
+    await sendmassage(chatUser, imageUrl, Type.image);
   }
 }

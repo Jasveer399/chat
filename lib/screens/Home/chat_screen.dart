@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat/api/apis.dart';
 import 'package:chat/constants/colors.dart';
@@ -65,6 +64,8 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                             [];
                     if (list.isNotEmpty) {
                       return ListView.builder(
+                        
+                        reverse: true,
                           //itemCount: _isScearch ? _sherchlist.length : list.length,
                           itemCount: list.length,
                           itemBuilder: (context, Index) {
@@ -192,7 +193,16 @@ class _Chat_ScreenState extends State<Chat_Screen> {
 
                   //for picking image from gallery
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                         final ImagePicker picker = ImagePicker();
+                        // Pick an image.
+                        final List<XFile> images =
+                            await picker.pickMultiImage(imageQuality: 70);
+                            for (var i in images) {
+                              log("image path: ${i.path}");
+                         await APIS.sendChatImage(widget.user, File(i.path));
+                            }              
+                      },
                       icon: Icon(
                         Icons.image,
                         color: AppprimeCl,
@@ -205,10 +215,10 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                         final ImagePicker picker = ImagePicker();
                         // Pick an image.
                         final XFile? image =
-                            await picker.pickImage(source: ImageSource.camera);
+                            await picker.pickImage(source: ImageSource.camera,imageQuality: 70);
                         if (image != null) {
                           log("image path: ${image.path}");
-                         await APIS.sentchatimage(widget.user, File(image.path));
+                         await APIS.sendChatImage(widget.user, File(image.path));
                         }
                       },
                       icon: Icon(

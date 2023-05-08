@@ -57,8 +57,11 @@ class _ChatUserCardState extends State<ChatUserCard> {
                   ),
                 ),
                 title: Text(widget.user.name),
-                subtitle:
-                    Text(_massage != null ? _massage!.msg : widget.user.about),
+                subtitle: Text(_massage != null
+                    ? _massage!.type == Type.image
+                        ? "Image"
+                        : _massage!.msg
+                    : widget.user.about),
                 trailing: _massage == null
                     ? null
                     : _massage!.read.isEmpty &&
