@@ -20,6 +20,32 @@ class Formatte_time {
     }
     return '${senttime.day} ${_getmonth(senttime)}';
   }
+
+  //for formating time in Appbar
+  static String getlastActivetime(
+      {required BuildContext context, required String lastActive}) {
+     final int i = int.tryParse(lastActive) ?? -1;
+
+    if (i == -1) return 'Last seen not Available';
+
+    DateTime time = DateTime.fromMillisecondsSinceEpoch(i);
+    DateTime now = DateTime.now();
+
+    String formatedtime = TimeOfDay.fromDateTime(time).format(context);
+
+    if (time.day == now.day &&
+        time.month == now.month &&
+        time.year == now.year) {
+      return 'Last senn at $formatedtime';
+    }
+
+    if ((now.difference(time).inHours / 24).round() == 1) {
+      return 'Last seen yesterday at $formatedtime';
+    }
+    String month = _getmonth(time);
+    return 'Last seen on ${time.day} $month on $formatedtime';
+  }
+
   static _getmonth(DateTime data) {
     switch (data.month) {
       case 1:

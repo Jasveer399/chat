@@ -1,12 +1,8 @@
-//import 'dart:convert';
-///import 'dart:developer';
 import 'package:chat/models/chat_user.dart';
 import 'package:chat/screens/Profile_Page/profile_page.dart';
 import 'package:chat/widgets/chat_user_card.dart';
-//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../../api/apis.dart';
 
 class Home_Page extends StatefulWidget {
@@ -18,7 +14,7 @@ class Home_Page extends StatefulWidget {
 
 class _Home_PageState extends State<Home_Page> {
   //for Storing The Users Data
-  List<ChatUaer> list = [];
+  List<ChatUaer> _list = [];
   //for Storing The Searching data
   final List<ChatUaer> _sherchlist = [];
 //for storing search status
@@ -26,11 +22,16 @@ class _Home_PageState extends State<Home_Page> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     APIS.getselfinfo();
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChannels.lifecycle.setMessageHandler((message){
+      
+      if(message.toString().contains('resume')) APIS.updateActiveStatus(true);
+      if(message.toString().contains('pause')) APIS.updateActiveStatus(false);
+      return Future.value(message);
+    });
   }
 
   @override
@@ -62,7 +63,7 @@ class _Home_PageState extends State<Home_Page> {
                       style: TextStyle(fontSize: 20, color: Colors.grey.shade400),
                       onChanged: (val) {
                          _sherchlist.clear();
-                        for (var i in list) {
+                        for (var i in _list) {
                           if (i.name.toLowerCase().contains(val.toLowerCase()) ||
                               i.email.toLowerCase().contains(val.toLowerCase())) {
                             _sherchlist.add(i);
@@ -92,7 +93,7 @@ class _Home_PageState extends State<Home_Page> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => Profile_Page(user:list[0])));
+                              builder: (_) => Profile_Page(user:_list[0])));
                     },
                     icon: Icon(
                       Icons.more_vert,
@@ -106,15 +107,14 @@ class _Home_PageState extends State<Home_Page> {
               stream: APIS.getalluser(),
               builder: (context, snapshot) {
                 final data = snapshot.data?.docs;
-                list = data?.map((e) => ChatUaer.fromJson(e.data())).toList() ?? [];
-          
-                if (list.isNotEmpty) {
+                _list = data?.map((e) => ChatUaer.fromJson(e.data())).toList() ?? [];
+                if (_list.isNotEmpty) {
                   return ListView.builder(
-                      itemCount: _isScearch ? _sherchlist.length : list.length,
+                      itemCount: _isScearch ? _sherchlist.length : _list.length,
                       itemBuilder: (context, Index) {
                         //og(data?.map((e) => ChatUaer.fromJson(e.data())).toList());
                         return ChatUserCard(
-                          user: _isScearch ? _sherchlist[Index] : list[Index],
+                          user: _isScearch ? _sherchlist[Index] : _list[Index],
                         );
                         //return Text('Name: ${list[Index]}');
                       });

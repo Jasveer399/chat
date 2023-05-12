@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:chat/models/chat_user.dart';
 import 'package:chat/models/massage_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -77,7 +76,7 @@ class APIS {
         .set(chatuser.toJson());
   }
 
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getalluser() {
+  static Stream<QuerySnapshot<Map<String, dynamic>>>getalluser() {
     return firestore
         .collection('users')
         .where("id", isNotEqualTo: user.uid)
@@ -124,7 +123,8 @@ class APIS {
       : '${id}_${user.uid}';
 
   //for sanding a massage
-  static Future<void> sendmassage(ChatUaer chatuser, String msg,Type type) async {
+  static Future<void> sendmassage(
+      ChatUaer chatuser, String msg, Type type) async {
     //for massage sending time and also used as a id;
     final time = DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -161,22 +161,24 @@ class APIS {
         .snapshots();
   }
 
-  //fOR Sent image massage
-  // static Future<void> sendChatImage(ChatUaer chatUaer,File file) async {
-   
-  //  final ext = file.path.split('.').last;
-  //   final ref = storage.ref().child('image/${getconversationid(chatUaer.id)}/${DateTime.now().millisecondsSinceEpoch}.$ext');
+  //for geting spacific user info
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getuserinfo(
+      ChatUaer chatuser) {
+    return firestore
+        .collection('users')
+        .where('id', isEqualTo: chatuser.id)
+        .snapshots();
+  }
 
-  //   ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
-  //     log('data Tranferred:${p0.bytesTransferred / 1000} kb');
-  //   });
-    
-  //   final imageurl=await ref.getDownloadURL();
-  //   await sendmassage(chatUaer, imageurl,Type.image);
-  // }
+  //for updating online or last active status of user
+  static Future<void> updateActiveStatus(bool isOnline) async {
+    firestore.collection('users').doc(user.uid).update({
+      'is_online': isOnline,
+      'last_active': DateTime.now().millisecondsSinceEpoch.toString(),
+    });
+  }
 
-
-    static Future<void> sendChatImage(ChatUaer chatUser, File file) async {
+  static Future<void> sendChatImage(ChatUaer chatUser, File file) async {
     //getting image file extension
     final ext = file.path.split('.').last;
 
