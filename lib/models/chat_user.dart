@@ -22,15 +22,15 @@ class ChatUaer {
   late String pushToken;
 
   ChatUaer.fromJson(Map<String, dynamic> json) {
-    image = json['image'] ?? "";
-    name = json['name'] ?? "";
-    about = json['about'] ?? "";
-    createdAt = json['created_at'] ?? "";
-    lastActive = json['last_active'] ?? "";
+    image = json['image'].toString();
+    name = json['name'].toString();
+    about = json['about'].toString();
+    createdAt = json['created_at'].toString();
+    lastActive = json['last_active'].toString();
     isOnline = json['is_online'] ?? "";
-    id = json['id'] ?? "";
-    email = json['email'] ?? "";
-    pushToken = json['push_token'] ?? "";
+    id = json['id'].toString();
+    email = json['email'].toString() ;
+    pushToken = json['push_token'].toString();
   }
 
   Map<String, dynamic> toJson() {
