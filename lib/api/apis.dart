@@ -27,20 +27,7 @@ class APIS {
   }
 
   //for storing self info
-  static late ChatUaer me;
-
-  ChatUaer meinfo = ChatUaer(
-    image: '',
-    name: '',
-    about: '',
-    createdAt: '',
-    lastActive: '',
-    isOnline: false,
-    id: '',
-    email: '',
-    pushToken: '',
-  );
-
+  static ChatUaer me=ChatUaer(image: user.photoURL.toString(), name: user.displayName.toString(), about:'', createdAt: '', lastActive: '', isOnline: false, id: user.uid.toString(), email:user.email.toString(), pushToken: '');
   //for geting self Info
   static Future<void> getselfinfo() async {
     await firestore

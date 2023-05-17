@@ -24,12 +24,17 @@ class _Home_PageState extends State<Home_Page> {
   void initState() {
     super.initState();
     APIS.getselfinfo();
+    APIS.updateActiveStatus(true);
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    SystemChannels.lifecycle.setMessageHandler((message){
-      
-      if(message.toString().contains('resume')) APIS.updateActiveStatus(true);
-      if(message.toString().contains('pause')) APIS.updateActiveStatus(false);
+    SystemChannels.lifecycle.setMessageHandler((message) {
+
+      if (APIS.auth.currentUser != null) {
+        if (message.toString().contains('resume'))
+          APIS.updateActiveStatus(true);
+        if (message.toString().contains('pause'))
+          APIS.updateActiveStatus(false);
+      }
       return Future.value(message);
     });
   }
@@ -38,17 +43,16 @@ class _Home_PageState extends State<Home_Page> {
   Widget build(BuildContext context) {
     ////final size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: ()=> FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: WillPopScope(
-        onWillPop: (){
-          if(_isScearch){
+        onWillPop: () {
+          if (_isScearch) {
             setState(() {
-              _isScearch=!_isScearch;
+              _isScearch = !_isScearch;
             });
             return Future.value(false);
-          }
-          else{
-              return Future.value(true);
+          } else {
+            return Future.value(true);
           }
         },
         child: Scaffold(
@@ -60,12 +64,17 @@ class _Home_PageState extends State<Home_Page> {
                         hintText: "Search",
                       ),
                       autofocus: true,
-                      style: TextStyle(fontSize: 20, color: Colors.grey.shade400),
+                      style:
+                          TextStyle(fontSize: 20, color: Colors.grey.shade400),
                       onChanged: (val) {
-                         _sherchlist.clear();
+                        _sherchlist.clear();
                         for (var i in _list) {
-                          if (i.name.toLowerCase().contains(val.toLowerCase()) ||
-                              i.email.toLowerCase().contains(val.toLowerCase())) {
+                          if (i.name
+                                  .toLowerCase()
+                                  .contains(val.toLowerCase()) ||
+                              i.email
+                                  .toLowerCase()
+                                  .contains(val.toLowerCase())) {
                             _sherchlist.add(i);
                           }
                           setState(() {
@@ -93,7 +102,7 @@ class _Home_PageState extends State<Home_Page> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => Profile_Page(user:_list[0])));
+                              builder: (_) => Profile_Page(user: APIS.me)));
                     },
                     icon: Icon(
                       Icons.more_vert,
@@ -107,7 +116,9 @@ class _Home_PageState extends State<Home_Page> {
               stream: APIS.getalluser(),
               builder: (context, snapshot) {
                 final data = snapshot.data?.docs;
-                _list = data?.map((e) => ChatUaer.fromJson(e.data())).toList() ?? [];
+                _list =
+                    data?.map((e) => ChatUaer.fromJson(e.data())).toList() ??
+                        [];
                 if (_list.isNotEmpty) {
                   return ListView.builder(
                       itemCount: _isScearch ? _sherchlist.length : _list.length,

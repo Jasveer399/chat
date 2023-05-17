@@ -7,6 +7,7 @@ import 'package:chat/constants/colors.dart';
 import 'package:chat/constants/images.dart';
 import 'package:chat/models/chat_user.dart';
 import 'package:chat/screens/Login_page/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
@@ -181,7 +182,7 @@ class _Profile_PageState extends State<Profile_Page> {
                 height: mq.height * 0.02,
               ),
               Text(
-                widget.user.name,
+                widget.user.about,
                 style: TextStyle(
                     color: Color.fromARGB(255, 3, 42, 71),
                     fontSize: 20,
@@ -229,11 +230,15 @@ class _Profile_PageState extends State<Profile_Page> {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.red,
         onPressed: () async {
+          
+          await APIS.updateActiveStatus(false);
+
           await APIS.auth.signOut().then((value) async => {
                 await GoogleSignIn().signOut().then((value) => {
                       //for moving home secreen
                       Navigator.pop(context),
 
+                     APIS.auth=FirebaseAuth.instance,
                       //for moving Loging Sereen
                       //Navigator.pop(context),
                       Navigator.pushReplacement(context,

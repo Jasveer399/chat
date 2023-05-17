@@ -8,7 +8,9 @@ class Formatte_time {
   }
 
   static String getlastmassagetime(
-      {required BuildContext context, required String time}) {
+      {required BuildContext context,
+      required String time,
+      bool showyear = false}) {
     final DateTime senttime =
         DateTime.fromMillisecondsSinceEpoch(int.parse(time));
     final DateTime nowtime = DateTime.now();
@@ -18,13 +20,15 @@ class Formatte_time {
         nowtime.year == senttime.year) {
       return TimeOfDay.fromDateTime(senttime).format(context);
     }
-    return '${senttime.day} ${_getmonth(senttime)}';
+    return showyear
+        ? '${senttime.day} ${_getmonth(senttime)} ${senttime.year}'
+        : '${senttime.day} ${_getmonth(senttime)}';
   }
 
   //for formating time in Appbar
   static String getlastActivetime(
       {required BuildContext context, required String lastActive}) {
-     final int i = int.tryParse(lastActive) ?? -1;
+    final int i = int.tryParse(lastActive) ?? -1;
 
     if (i == -1) return 'Last seen not Available';
 
@@ -36,7 +40,7 @@ class Formatte_time {
     if (time.day == now.day &&
         time.month == now.month &&
         time.year == now.year) {
-      return 'Last senn at $formatedtime';
+      return 'Last seen at $formatedtime';
     }
 
     if ((now.difference(time).inHours / 24).round() == 1) {

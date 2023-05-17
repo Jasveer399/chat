@@ -6,6 +6,7 @@ import 'package:chat/constants/colors.dart';
 import 'package:chat/helper/formatte_time.dart';
 import 'package:chat/models/chat_user.dart';
 import 'package:chat/models/massage_data.dart';
+import 'package:chat/screens/Profile_Page/view_user_profile.dart';
 import 'package:chat/widgets/massage_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -93,7 +94,9 @@ class _Chat_ScreenState extends State<Chat_Screen> {
 
   Widget _appBar() {
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_)=>View_Profile(user: widget.user,)));
+        },
         child: StreamBuilder(
           stream: APIS.getuserinfo(widget.user),
           builder: (context, snapshot) {
